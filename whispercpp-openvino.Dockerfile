@@ -58,7 +58,7 @@ RUN wget ${OPENVINO_PACKAGE_URL} -O openvino.tgz && \
 #Set OpenVINO environment variables
 ENV INTEL_OPENVINO_DIR=/opt/intel/openvino_${OPENVINO_VERSION}
 ENV PATH=$INTEL_OPENVINO_DIR/bin:$PATH
-ENV LD_LIBRARY_PATH=$INTEL_OPENVINO_DIR/runtime/lib/intel64:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=$INTEL_OPENVINO_DIR/runtime/lib/intel64
 
 #Clone the whisper.cpp repository
 RUN git clone https://github.com/ggerganov/whisper.cpp.git /whisper.cpp

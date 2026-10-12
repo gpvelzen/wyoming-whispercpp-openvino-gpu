@@ -32,7 +32,7 @@ RUN wget -qO - https://repositories.intel.com/gpu/intel-graphics.key | \
 #Intel packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends --fix-missing \
-    intel-opencl-icd intel-level-zero-gpu level-zero \
+    intel-opencl-icd intel-level-zero-gpu level-zero ocl-icd-libopencl1 \
     level-zero-dev intel-oneapi-runtime-dpcpp-cpp intel-oneapi-runtime-mkl intel-oneapi-compiler-shared-common-2023.2.1 \
     intel-media-va-driver-non-free libmfx1 libmfxgen1 libvpl2 \
     libegl-mesa0 libegl1-mesa libegl1-mesa-dev libgbm1 libgl1-mesa-dev libgl1-mesa-dri \

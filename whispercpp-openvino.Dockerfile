@@ -1,13 +1,13 @@
-ARG UBUNTU_VERSION=22.04
+ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION} AS wyoming-whispercpp-openvino-gpu 
-ARG PYTHON=python3.10
+ARG PYTHON=python3.12
 RUN apt-get update && \
     apt-get install -y --no-install-recommends --fix-missing \
     ca-certificates gnupg2 gpg-agent unzip \
     wget build-essential curl libgl1 libglib2.0-0 \
     libgomp1 libjemalloc-dev git git-lfs curl \
     opencl-headers clblast-utils clinfo numactl \
-    python3 libpython3.11 python3-pip python3-venv
+    python3 libpython3.12 python3-pip python3-venv
 
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
@@ -43,17 +43,17 @@ RUN apt-get update && \
 
 
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so
-ENV OPENVINO_VERSION=2023.0.0
-ENV OPENVINO_PACKAGE_URL=https://storage.openvinotoolkit.org/repositories/openvino/packages/2023.0/linux/l_openvino_toolkit_ubuntu22_2023.0.0.10926.b4452d56304_x86_64.tgz
+ENV OPENVINO_VERSION=2026.4
+ENV OPENVINO_PACKAGE_URL=https://storage.openvinotoolkit.org/repositories/openvino/packages/2026.4/linux/openvino_toolkit_ubuntu24_2026.4.0.22959.99c81491cc3_x86_64.tgz
 
 #Download and install prebuilt OpenVINO
 RUN wget ${OPENVINO_PACKAGE_URL} -O openvino.tgz && \
     tar -xzf openvino.tgz && \
     rm openvino.tgz && \
-    sed -i 's/apt-get install /apt-get install -y /g' l_openvino_toolkit_ubuntu22_${OPENVINO_VERSION}.*/install_dependencies/install_openvino_dependencies.sh && \
-    /bin/bash l_openvino_toolkit_ubuntu22_${OPENVINO_VERSION}.*/install_dependencies/install_openvino_dependencies.sh && \
+    sed -i 's/apt-get install /apt-get install -y /g' openvino_toolkit_ubuntu24_${OPENVINO_VERSION}.*/install_dependencies/install_openvino_dependencies.sh && \
+    /bin/bash openvino_toolkit_ubuntu24_${OPENVINO_VERSION}.*/install_dependencies/install_openvino_dependencies.sh && \
     mkdir -p /opt/intel && \
-    mv l_openvino_toolkit_ubuntu22_${OPENVINO_VERSION}.* /opt/intel/openvino_${OPENVINO_VERSION}
+    mv openvino_toolkit_ubuntu24_${OPENVINO_VERSION}.* /opt/intel/openvino_${OPENVINO_VERSION}
 
 #Set OpenVINO environment variables
 ENV INTEL_OPENVINO_DIR=/opt/intel/openvino_${OPENVINO_VERSION}
